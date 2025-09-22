@@ -1,0 +1,22 @@
+# https://kubernetes.io/docs/concepts/services-networking/ingress/
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingres-service
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    # kubernetes.io/ingress.class: nginx
+
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: drosinakis.app 
+      http:
+        paths:
+          - path: /?(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: photo-site-client-srv
+                port:
+                  number: 80

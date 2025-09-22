@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: photo-site-client-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: photo-site-client
+  template:
+    metadata:
+      labels:
+        app: photo-site-client
+    spec:
+      containers:
+        - name: photo-site-client
+          image: drososdro/photo-site-client
+          imagePullPolicy: IfNotPresent
+
+          # volumeMounts:
+          #   - mountPath: /static
+          #     name: static-data
+
+      # volumes:
+      #   - name: static-data
+      #     persistentVolumeClaim:
+      #       claimName: photo-site-static-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: photo-site-client-srv
+spec:
+  selector:
+    app: photo-site-client
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
