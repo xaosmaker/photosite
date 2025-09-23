@@ -1,10 +1,11 @@
 import Hero from "@/components/Hero";
+import { TimelineDemo } from "@/components/Timeline";
 
 export default function Home() {
   return (
     <div>
       <Hero />
-      <div className="h-screen w-full bg-red-500">some text</div>
+      <TimelineDemo id="about" />
     </div>
   );
 }
