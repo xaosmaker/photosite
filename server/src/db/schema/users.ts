@@ -16,7 +16,7 @@ export const usersTable = pgTable(
     is_admin: boolean().default(false),
     user_type: varchar().notNull().default("user"),
     created_at: timestamp().defaultNow().notNull(),
-    updated_at: timestamp(),
+    updated_at: timestamp().defaultNow().notNull(),
   },
   (table) => [index("email_idx").on(table.email)],
 );

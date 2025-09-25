@@ -9,3 +9,6 @@ makeMigrations:
 
 migrate:
 	docker exec -it photosite_server npx drizzle-kit migrate
+
+log-server:
+	docker logs photosite_server
