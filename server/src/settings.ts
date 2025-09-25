@@ -4,4 +4,9 @@ function envExists(env: string | undefined) {
   }
   throw new Error(`ENV does not exist`);
 }
-export const DATABASE_URL = envExists(process.env.DATABASE_URL);
+const DATABASE_URL = envExists(process.env.DATABASE_URL);
+const JWT_KEY = envExists(process.env.JWT_KEY);
+const JWT_EXPIRES = envExists(process.env.JWT_EXPIRES);
+const SALT_TIMES = envExists(process.env.SALT_TIMES);
+
+export { DATABASE_URL, JWT_KEY, JWT_EXPIRES, SALT_TIMES };

@@ -19,3 +19,10 @@ export function createUserValidator() {
       .withMessage("confirm password is required"),
   ];
 }
+
+export function loginUserValidator() {
+  return [
+    body("email").isEmail().withMessage("email cant be empty"),
+    body("password").notEmpty().withMessage("Password can't be empty"),
+  ];
+}

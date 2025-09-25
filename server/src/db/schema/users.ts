@@ -13,7 +13,7 @@ export const usersTable = pgTable(
     id: integer().primaryKey().generatedAlwaysAsIdentity(),
     email: varchar({ length: 255 }).notNull().unique(),
     password: varchar({ length: 255 }).notNull(),
-    is_admin: boolean().default(false),
+    is_admin: boolean().default(false).notNull(),
     user_type: varchar().notNull().default("user"),
     created_at: timestamp().defaultNow().notNull(),
     updated_at: timestamp().defaultNow().notNull(),
