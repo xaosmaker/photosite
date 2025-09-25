@@ -5,7 +5,8 @@ import { eq } from "drizzle-orm";
 import { PasswordMismatchError } from "../errors/passwordMismatchError";
 import { EmailExistsError } from "../errors/emailExistsError";
 import { hash } from "bcrypt";
-export default async function createUserHandler(
+
+export async function createUserHandler(
   req: Request,
   res: Response,
   _next: NextFunction,
