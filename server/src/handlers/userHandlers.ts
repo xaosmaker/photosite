@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { usersTable } from "../db/schema/users";
+import usersTable from "../db/schema/users";
 import { db } from "../db/dbPool";
 import { eq } from "drizzle-orm";
 import { PasswordMismatchError } from "../errors/passwordMismatchError";
@@ -35,8 +35,8 @@ export async function createUserHandler(
     .insert(usersTable)
     .values({ email: email, password: hashPass })
     .returning({
-      id: usersTable.id,
-      is_admin: usersTable.is_admin,
+      pkid: usersTable.pkid,
+      isAdmin: usersTable.isAdmin,
       email: usersTable.email,
     });
 
@@ -53,8 +53,8 @@ export async function loginUserHandler(
   const { email, password } = req.body;
   const [user] = await db
     .select({
-      id: usersTable.id,
-      is_admin: usersTable.is_admin,
+      pkid: usersTable.pkid,
+      isAdmin: usersTable.isAdmin,
       email: usersTable.email,
       password: usersTable.password,
     })
@@ -87,8 +87,8 @@ export async function getUsersHandler(
 
   const user = await db
     .select({
-      id: usersTable.id,
-      is_admin: usersTable.is_admin,
+      pkid: usersTable.pkid,
+      isAdmin: usersTable.isAdmin,
       email: usersTable.email,
     })
     .from(usersTable);

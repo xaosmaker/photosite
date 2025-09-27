@@ -10,10 +10,13 @@ function envExists(env: string | undefined) {
 const DATABASE_URL = envExists(process.env.DATABASE_URL);
 
 export default defineConfig({
-  out: "./drizzle",
-  schema: "./src/db/schema",
+  out: "./src/db/migrations",
+  schema: "./src/db/schema/index.ts",
   dialect: "postgresql",
   dbCredentials: {
     url: DATABASE_URL,
   },
+
+  verbose: true,
+  strict: true,
 });

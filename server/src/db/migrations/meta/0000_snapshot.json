@@ -1,6 +1,6 @@
 {
-  "id": "ca592343-0822-43e7-86cc-488609e118fe",
-  "prevId": "17f83209-baa2-423b-931b-044d34b6d520",
+  "id": "721da36d-d241-436b-adc0-716d4cb8cc1c",
+  "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -8,14 +8,14 @@
       "name": "users",
       "schema": "",
       "columns": {
-        "id": {
-          "name": "id",
+        "pkid": {
+          "name": "pkid",
           "type": "integer",
           "primaryKey": true,
           "notNull": true,
           "identity": {
             "type": "always",
-            "name": "users_id_seq",
+            "name": "users_pkid_seq",
             "schema": "public",
             "increment": "1",
             "startWith": "1",
@@ -24,6 +24,20 @@
             "cache": "1",
             "cycle": false
           }
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
         },
         "email": {
           "name": "email",
@@ -41,7 +55,7 @@
           "name": "is_admin",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "default": false
         },
         "user_type": {
@@ -50,19 +64,6 @@
           "primaryKey": false,
           "notNull": true,
           "default": "'user'"
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "updated_at": {
-          "name": "updated_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false
         }
       },
       "indexes": {

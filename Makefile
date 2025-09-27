@@ -15,3 +15,6 @@ log-server:
 
 log-client:
 	docker logs photosite_client
+
+down-v:
+	docker compose -f local.yaml down -v

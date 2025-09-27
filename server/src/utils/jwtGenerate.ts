@@ -5,9 +5,9 @@ import { User } from "../types/user";
 
 export function jwtToResponse(
   res: Response,
-  user: Pick<User, "email" | "id" | "is_admin">,
+  user: Pick<User, "email" | "pkid" | "isAdmin">,
 ) {
-  const access = jwt.sign({ id: user.id }, JWT_KEY, {
+  const access = jwt.sign({ id: user.pkid }, JWT_KEY, {
     expiresIn: Number(JWT_EXPIRES),
   });
 
@@ -19,7 +19,7 @@ export function jwtToResponse(
   });
   res.cookie(
     "loggedIn",
-    JSON.stringify({ loggedIn: true, isAdmin: user.is_admin }),
+    JSON.stringify({ loggedIn: true, isAdmin: user.isAdmin }),
     { maxAge: Number(JWT_EXPIRES) * 1000, secure: true, sameSite: "strict" },
   );
 }
