@@ -7,7 +7,9 @@ import { EmailExistsError } from "../errors/emailExistsError";
 import { compare, hash } from "bcrypt";
 import { InvalidCredentialsError } from "../errors/InvalidCredentialsError";
 import { jwtToResponse } from "../utils/jwtGenerate";
-import { SALT_TIMES } from "../settings";
+import { JWT_KEY, SALT_TIMES } from "../settings";
+import { parse } from "cookie";
+import { verify } from "jsonwebtoken";
 
 export async function createUserHandler(
   req: Request,
@@ -32,8 +34,11 @@ export async function createUserHandler(
   const [user] = await db
     .insert(usersTable)
     .values({ email: email, password: hashPass })
-    .returning();
-  user.password = "********";
+    .returning({
+      id: usersTable.id,
+      is_admin: usersTable.is_admin,
+      email: usersTable.email,
+    });
 
   jwtToResponse(res, user);
 
@@ -47,7 +52,12 @@ export async function loginUserHandler(
 ) {
   const { email, password } = req.body;
   const [user] = await db
-    .select()
+    .select({
+      id: usersTable.id,
+      is_admin: usersTable.is_admin,
+      email: usersTable.email,
+      password: usersTable.password,
+    })
     .from(usersTable)
     .where(eq(usersTable.email, email));
 
@@ -59,8 +69,29 @@ export async function loginUserHandler(
   if (!isPassMatch) {
     throw new InvalidCredentialsError();
   }
+  user.password = "********";
 
   jwtToResponse(res, user);
 
-  res.json({ message: "successfully login" });
+  res.json(user);
+}
+
+export async function getUsersHandler(
+  req: Request,
+  res: Response,
+  _next: NextFunction,
+) {
+  const cookie = parse(req.headers.cookie || "");
+
+  const ver = verify(cookie["access"]!, JWT_KEY);
+
+  const user = await db
+    .select({
+      id: usersTable.id,
+      is_admin: usersTable.is_admin,
+      email: usersTable.email,
+    })
+    .from(usersTable);
+
+  res.json(user);
 }

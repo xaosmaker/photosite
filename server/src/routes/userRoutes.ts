@@ -1,5 +1,9 @@
 import express from "express";
-import { createUserHandler, loginUserHandler } from "../handlers/userHandlers";
+import {
+  createUserHandler,
+  getUsersHandler,
+  loginUserHandler,
+} from "../handlers/userHandlers";
 import {
   createUserValidator,
   loginUserValidator,
@@ -10,5 +14,6 @@ const r = express.Router();
 
 r.post("/", createUserValidator(), validateBodyFields, createUserHandler);
 r.post("/login", loginUserValidator(), validateBodyFields, loginUserHandler);
+r.get("/", getUsersHandler);
 
 export { r as userRouter };

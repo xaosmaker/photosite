@@ -12,3 +12,6 @@ migrate:
 
 log-server:
 	docker logs photosite_server
+
+log-client:
+	docker logs photosite_client
