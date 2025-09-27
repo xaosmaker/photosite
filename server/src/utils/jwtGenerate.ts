@@ -7,7 +7,7 @@ export function jwtToResponse(
   res: Response,
   user: Pick<User, "email" | "pkid" | "isAdmin">,
 ) {
-  const access = jwt.sign({ id: user.pkid }, JWT_KEY, {
+  const access = jwt.sign({ pkid: user.pkid }, JWT_KEY, {
     expiresIn: Number(JWT_EXPIRES),
   });
 

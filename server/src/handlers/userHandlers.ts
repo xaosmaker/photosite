@@ -81,9 +81,7 @@ export async function getUsersHandler(
   res: Response,
   _next: NextFunction,
 ) {
-  const cookie = parse(req.headers.cookie || "");
-
-  const ver = verify(cookie["access"]!, JWT_KEY);
+  console.log(req.user);
 
   const user = await db
     .select({
