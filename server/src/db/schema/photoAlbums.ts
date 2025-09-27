@@ -1,0 +1,15 @@
+import { pgTable, varchar, boolean, integer, text } from "drizzle-orm/pg-core";
+import { pkidWithTimestamps } from "./helpers";
+import categoriesTable from "./categories";
+
+const photoAlbumsTable = pgTable("photo_albums", {
+  ...pkidWithTimestamps,
+  title: varchar({ length: 255 }).notNull().unique(),
+  description: text(),
+  isCover: boolean("is_cover").notNull().default(false),
+  categoriesId: integer("categories_id")
+    .references(() => categoriesTable.pkid)
+    .notNull(),
+});
+
+export default photoAlbumsTable;
