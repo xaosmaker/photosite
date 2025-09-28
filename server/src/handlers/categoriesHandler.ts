@@ -19,7 +19,7 @@ export async function createCategoryHandler(
         categorySlug,
       })
       .returning();
-    res.json(cat);
+    res.status(201).json(cat);
     return;
   } catch (e) {
     if (e instanceof DrizzleQueryError) {
