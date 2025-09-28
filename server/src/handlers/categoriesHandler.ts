@@ -29,3 +29,14 @@ export async function createCategoryHandler(
     }
   }
 }
+
+export async function getAllCategoriesHandler(
+  _req: Request,
+  res: Response,
+  _next: NextFunction,
+) {
+  const cat = await db
+    .select({ name: categoriesTable.categoryName })
+    .from(categoriesTable);
+  res.json(cat);
+}
