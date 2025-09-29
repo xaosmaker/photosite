@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React from "react";
-import HeroSlider from "./ui/HeroSlider";
+import HeroSlider from "@/components/ui/HeroSlider";
 
 export default function Hero() {
   const images = [

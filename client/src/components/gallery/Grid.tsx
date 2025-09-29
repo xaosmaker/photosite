@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { WobbleCard } from "./ui/wobble-card";
+import { WobbleCard } from "@/components/ui/wobble-card";
 
 export default function Grid({
   className,

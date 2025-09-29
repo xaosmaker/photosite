@@ -6,7 +6,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "./ui/carousel";
+} from "@/components/ui/carousel";
 import { useEffect, useState } from "react";
 export const PhotoCarousel = ({
   images,

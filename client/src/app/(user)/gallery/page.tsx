@@ -1,17 +1,16 @@
-import PhotoCard from "@/components/PhotoCard";
+import PhotoCard from "@/components/gallery/PhotoCard";
 export default function Page() {
-
-const photos = [
-  "https://drosinakis.app/static/pic1.jpeg",
-  "https://drosinakis.app/static/pic2.jpeg",
-  "https://drosinakis.app/static/pic3.jpeg",
-  "https://drosinakis.app/static/pic4.jpeg",
-  "https://drosinakis.app/static/pic5.jpeg",
-  "https://drosinakis.app/static/pic6.jpeg",
-  "https://drosinakis.app/static/pic7.jpeg",
-  "https://drosinakis.app/static/pic8.jpeg",
-  "https://drosinakis.app/static/pic9.jpeg",
-];
+  const photos = [
+    "https://drosinakis.app/static/pic1.jpeg",
+    "https://drosinakis.app/static/pic2.jpeg",
+    "https://drosinakis.app/static/pic3.jpeg",
+    "https://drosinakis.app/static/pic4.jpeg",
+    "https://drosinakis.app/static/pic5.jpeg",
+    "https://drosinakis.app/static/pic6.jpeg",
+    "https://drosinakis.app/static/pic7.jpeg",
+    "https://drosinakis.app/static/pic8.jpeg",
+    "https://drosinakis.app/static/pic9.jpeg",
+  ];
 
   const list1: string[] = [];
   const list2: string[] = [];
@@ -44,4 +43,3 @@ const photos = [
     </div>
   );
 }
-

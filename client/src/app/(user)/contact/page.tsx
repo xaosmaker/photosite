@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
-import ContactCard from "@/features/contact/pages/ContactCard";
+import ContactCard from "@/components/contact/ContactCard";
 import Image from "next/image";
 
 export default function page() {

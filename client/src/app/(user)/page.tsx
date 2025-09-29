@@ -1,5 +1,5 @@
-import Hero from "@/components/Hero";
-import { TimelineDemo } from "@/components/Timeline";
+import Hero from "@/components/home/Hero";
+import { TimelineDemo } from "@/components/home/Timeline";
 
 export default function Home() {
   return (
