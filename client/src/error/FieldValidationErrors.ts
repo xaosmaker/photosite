@@ -15,7 +15,7 @@ export class FieldValidationError<T> extends CustomValidationError<T> {
     if (this.error instanceof ZodError) {
       const error = z.flattenError(this.error).fieldErrors;
       return {
-        errors: { ...error, root: [] },
+        errors: { ...error, root: undefined },
         inputs: this.formData,
         success: this.success || false,
       };
