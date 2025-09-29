@@ -5,7 +5,7 @@ declare module "next-auth" {
   export interface User {
     pkid: number;
     email: string;
-    is_admin: boolean;
+    isAdmin: boolean;
     access: string;
     validity: number;
   }
