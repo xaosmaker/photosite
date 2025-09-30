@@ -3,8 +3,8 @@ import DisplayZodErrors from "@/components/DisplayZodErrors";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { createCategoryAction } from "@/server-actions/createCategoryAction";
 import { useActionState } from "react";
+import { createCategoryAction } from "../actions/createCategoryAction";
 
 export default function CreateCategoryForm() {
   const [state, action, isPending] = useActionState(

@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import ContactForm from "@/components/contact/forms/ContactForm";
+import ContactForm from "./forms/ContactForm";
 
 export default function ContactCard() {
   return (

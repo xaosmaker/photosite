@@ -1,4 +1,5 @@
-import PhotoCard from "@/components/gallery/PhotoCard";
+import PhotoCard from "@/features/gallery/PhotoCard";
+
 export default function Page() {
   const photos = [
     "https://drosinakis.app/static/pic1.jpeg",

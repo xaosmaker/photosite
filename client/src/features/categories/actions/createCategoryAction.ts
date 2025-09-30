@@ -1,9 +1,9 @@
 "use server";
-import { FieldValidationError } from "@/error/FieldValidationErrors";
 import { serverURL } from "@/lib/serverURL";
-import { Category } from "@/types/CategoryTypes";
-import { postRequest } from "@/utils/requests";
-import { createCategoryValidator } from "@/validators/createCategoryValidators";
+import { createCategoryValidator } from "../catValidator";
+import { Category } from "../types/catTypes";
+import { FieldValidationError } from "@/error/FieldValidationErrors";
+import { postRequest } from "@/lib/requests";
 
 export async function createCategoryAction(
   _previousState: unknown,

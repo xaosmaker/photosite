@@ -1,4 +1,4 @@
-import { createCategoryValidator } from "@/validators/createCategoryValidators";
 import { z } from "zod/v4";
+import { createCategoryValidator } from "../catValidator";
 
 export type Category = z.infer<typeof createCategoryValidator>;

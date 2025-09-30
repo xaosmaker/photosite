@@ -1,16 +1,16 @@
 "use client";
 
-import { Category } from "@/types/CategoryTypes";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { ColumnDef } from "@tanstack/react-table";
-import CreateCategoryForm from "@/components/categories/forms/CreateCategoryForm";
 import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 import { CirclePlus } from "lucide-react";
+import { Category } from "@/features/categories/types/catTypes";
+import CreateCategoryForm from "@/features/categories/forms/CreateCategoryForm";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 
-export const columns: ColumnDef<Category>[] = [
+export const categoryTableCols: ColumnDef<Category>[] = [
   {
     accessorKey: "categoryName",
     header: "Title",

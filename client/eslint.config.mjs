@@ -4,6 +4,8 @@ import { FlatCompat } from "@eslint/eslintrc";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+import boundaries from "eslint-plugin-boundaries";
+import conf from "./esl.boundaries.json" with { type: "json" };
 
 const compat = new FlatCompat({
   baseDirectory: __dirname,
@@ -14,11 +16,14 @@ const eslintConfig = [
   {
     ignores: [
       "node_modules/**",
+
       ".next/**",
       "out/**",
       "build/**",
       "next-env.d.ts",
     ],
+    plugins: { boundaries: boundaries },
+    ...conf,
   },
 ];
 
