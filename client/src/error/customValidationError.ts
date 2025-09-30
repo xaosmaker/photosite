@@ -8,7 +8,11 @@ export type SerializeError<T> = {
 
 export abstract class CustomValidationError<T> {
   constructor(
-    public error: ZodError<T> | string | undefined,
+    public error:
+      | ZodError<T>
+      | string
+      | Array<{ message: string; field?: string }>
+      | undefined,
     public formData: Record<keyof T, FormDataEntryValue | null>,
     public success?: boolean,
   ) {}

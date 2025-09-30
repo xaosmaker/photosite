@@ -1,14 +1,18 @@
 "use server";
 import { FieldValidationError } from "@/error/FieldValidationErrors";
+import { serverURL } from "@/lib/serverURL";
 import { Category } from "@/types/CategoryTypes";
+import { postRequest } from "@/utils/requests";
 import { createCategoryValidator } from "@/validators/createCategoryValidators";
 
 export async function createCategoryAction(
   _previousState: unknown,
   formData: FormData,
 ) {
+  console.log(1, formData);
+
   const data = {
-    title: formData.get("title"),
+    categoryName: formData.get("categoryName"),
   };
 
   const validated = createCategoryValidator.safeParse(data);
@@ -22,20 +26,26 @@ export async function createCategoryAction(
     return error;
   }
   try {
-    await new Promise((_resolve, _reject) => {
-      setTimeout(() => _reject(new Error("error message")), 2000);
-    });
-  } catch (e) {
-    if (e instanceof Error) {
-      console.log("enter");
+    const res = await postRequest(
+      `${serverURL}/api/categories`,
+      "application/json",
+      validated.data,
+    );
+    const resData = await res.json();
 
-      const error = new FieldValidationError<Category>(
+    console.log(resData);
+
+    if (res.status !== 201) {
+      return new FieldValidationError<Category>(resData, data).serializeError();
+    }
+  } catch (e) {
+    console.log(11, e);
+
+    if (e instanceof Error) {
+      return new FieldValidationError<Category>(
         e.message,
         data,
       ).serializeError();
-      console.log(error.errors);
-
-      return error;
     }
   }
 }

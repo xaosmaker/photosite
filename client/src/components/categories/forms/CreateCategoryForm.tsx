@@ -17,14 +17,14 @@ export default function CreateCategoryForm() {
         <Label htmlFor="title">Title</Label>
         <Input
           id="title"
-          defaultValue={state?.inputs?.title as string}
-          name="title"
+          defaultValue={state?.inputs?.categoryName as string}
+          name="categoryName"
           type="text"
           required
         />
 
-        {state?.errors?.title && (
-          <DisplayZodErrors title="Title" errors={state.errors?.title} />
+        {state?.errors?.categoryName && (
+          <DisplayZodErrors title="Title" errors={state.errors?.categoryName} />
         )}
       </div>
 
