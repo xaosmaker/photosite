@@ -27,8 +27,8 @@ const items = [
     icon: Home,
   },
   {
-    title: "Create Category",
-    url: "/admin/create-category",
+    title: "Categories",
+    url: "/admin/categories",
     icon: ClipboardPlus,
   },
 ];

@@ -6,9 +6,9 @@ export default function layout({ children }: { children: React.ReactNode }) {
     <SidebarProvider>
       <AppSidebar />
 
-      <main className="bg-muted relative flex min-h-svh w-full flex-col items-center justify-center gap-5">
+      <main className="bg-muted relative min-h-svh w-full gap-5">
         <SidebarTrigger className="absolute top-0 left-0" />
-        <div className="flex w-full max-w-sm flex-col gap-6">{children}</div>
+        <div className="mx-auto mt-20 w-full max-w-xl">{children}</div>
       </main>
     </SidebarProvider>
   );
