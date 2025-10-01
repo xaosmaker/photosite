@@ -18,3 +18,17 @@ export async function postRequest(
     body: JSON.stringify(body),
   });
 }
+
+export async function postRequestFile(url: string, body: FormData) {
+  const session = await auth();
+  if (!session) {
+    throw new Error("Invalid Credential from Session");
+  }
+  return fetch(url, {
+    method: "post",
+    headers: {
+      cookie: session.user.access,
+    },
+    body: body,
+  });
+}

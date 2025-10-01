@@ -5,6 +5,7 @@ import { photoAlbums } from ".";
 const imagesTable = pgTable("images", {
   ...pkidWithTimestamps,
   src: varchar().notNull(),
+  filename: varchar().notNull().unique(),
   isCover: boolean("is_cover").notNull().default(false),
   isShown: boolean("is_shown").notNull().default(false),
   alt: varchar().notNull(),

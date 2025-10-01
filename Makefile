@@ -18,3 +18,6 @@ log-client:
 
 down-v:
 	docker compose -f local.yaml down -v
+
+down:
+	docker compose -f local.yaml down

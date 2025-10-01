@@ -13,4 +13,6 @@ export const photoAlbumValidators = z.object({
           "Category contains only letters and spaces and must start with letter",
       },
     ),
+  images: z.array(z.file()),
+  altText: z.string(),
 });

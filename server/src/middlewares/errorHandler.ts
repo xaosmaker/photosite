@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { CustomError } from "../errors/customError";
+import { FieldAlreadyExistsError } from "../errors/fieldAlreadyExistsError";
 export function errorHandler(
   err: Error,
   _req: Request,
@@ -10,6 +11,13 @@ export function errorHandler(
     res.status(err.statusCode).json(err.serializeErrors());
     return;
   }
+  if (err.message) {
+    const error = new FieldAlreadyExistsError(err.message);
+    res.status(error.statusCode).json(error.serializeErrors());
+  }
 
-  res.status(500).json("something went wrong");
+  const error = new FieldAlreadyExistsError(
+    "Something went Wrong",
+  ).serializeErrors();
+  res.status(500).json(error);
 }

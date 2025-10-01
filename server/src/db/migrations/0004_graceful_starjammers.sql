@@ -1,0 +1,1 @@
+ALTER TABLE "images" ADD COLUMN "filename" varchar NOT NULL;

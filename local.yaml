@@ -6,6 +6,8 @@ services:
       dockerfile: dev.Dockerfile
     volumes:
       - ./server:/server
+      - $HOME/nginx_local/static/static-files:/test
+
     env_file:
       - ./.env
     expose:

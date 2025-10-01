@@ -13,6 +13,7 @@ import { photoAlbumValidators } from "../photAlbumValidators";
 import DisplayZodErrors from "@/components/DisplayZodErrors";
 import { useActionState, useTransition } from "react";
 import { createPhotoAlbumAction } from "../actions/createPhotoAlbumAction";
+import { FileUpload } from "@/components/ui/file-upload";
 export default function CreatePhotoAlbumForm({
   categories,
 }: {
@@ -24,6 +25,7 @@ export default function CreatePhotoAlbumForm({
   const {
     register,
     control,
+    watch,
     handleSubmit,
     formState: { errors },
   } = useForm<PhotoAlbum>({
@@ -34,11 +36,25 @@ export default function CreatePhotoAlbumForm({
       isCover: false,
     },
   });
+
   function onsubmit(data: PhotoAlbum) {
+    console.log(1234, data);
+    const formData = new FormData();
+    Array.from(data.images).forEach((file) => {
+      formData.append("images", file);
+    });
+    const keys = Object.keys(data) as (keyof PhotoAlbum)[];
+    keys.forEach((key) => {
+      if (key !== "images") {
+        formData.append(key, data[key] as string);
+      }
+    });
+
     startTransition(() => {
-      action(data);
+      action(formData);
     });
   }
+  console.log(345, watch("images"));
 
   return (
     <form onSubmit={handleSubmit(onsubmit)} className="grid gap-4">
@@ -98,6 +114,18 @@ export default function CreatePhotoAlbumForm({
           )}
         />
         <Label htmlFor="isCover">Is Cover</Label>
+      </div>
+      <Controller
+        name="images"
+        control={control}
+        render={({ field: { onChange } }) => <FileUpload onChange={onChange} />}
+      />
+      {errors.images?.message && (
+        <DisplayZodErrors title="Title" errors={[errors.images?.message]} />
+      )}
+      <div>
+        <Label>Alt Text for image</Label>
+        <Input type="text" {...register("altText")} />
       </div>
       <Button disabled={isPending} type="submit">
         Submit
