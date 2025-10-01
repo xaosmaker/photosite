@@ -36,7 +36,10 @@ export async function getAllCategoriesHandler(
   _next: NextFunction,
 ) {
   const cat = await db
-    .select({ categoryName: categoriesTable.categoryName })
+    .select({
+      pkid: categoriesTable.pkid,
+      categoryName: categoriesTable.categoryName,
+    })
     .from(categoriesTable);
   res.json(cat);
 }

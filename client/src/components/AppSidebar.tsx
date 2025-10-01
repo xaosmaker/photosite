@@ -1,4 +1,4 @@
-import { ClipboardPlus, Home } from "lucide-react";
+import { BookImage, ClipboardPlus, Home } from "lucide-react";
 
 import {
   Sidebar,
@@ -23,6 +23,11 @@ const items = [
     title: "Categories",
     url: "/admin/categories",
     icon: ClipboardPlus,
+  },
+  {
+    title: "Photo Albums",
+    url: "/admin/photo-album",
+    icon: BookImage,
   },
 ];
 

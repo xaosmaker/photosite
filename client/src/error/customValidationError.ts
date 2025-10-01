@@ -13,7 +13,7 @@ export abstract class CustomValidationError<T> {
       | string
       | Array<{ message: string; field?: string }>
       | undefined,
-    public formData: Record<keyof T, FormDataEntryValue | null>,
+    public formData: Record<keyof T, FormDataEntryValue | null> | undefined,
     public success?: boolean,
   ) {}
   abstract serializeError(): SerializeError<T>;

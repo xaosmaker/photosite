@@ -3,7 +3,7 @@ import { auth } from "@/lib/auth";
 export async function postRequest(
   url: string,
   header: "application/json",
-  body: Record<string, string>,
+  body: Record<string, string | boolean | number>,
 ) {
   const session = await auth();
   if (!session) {
