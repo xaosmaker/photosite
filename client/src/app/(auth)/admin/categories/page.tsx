@@ -1,9 +1,8 @@
 import { DataTable } from "@/components/data-table";
 import { categoryTableCols } from "@/features/categories/CategoryTablecols";
-import { serverURL } from "@/lib/serverURL";
+import { getCategories } from "@/features/categories/fetchers";
 export default async function Page() {
-  const res = await fetch(`${serverURL}/api/categories`);
-  const categoryData = await res.json();
+  const categoryData = await getCategories();
 
   return (
     <>

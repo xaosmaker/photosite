@@ -4,6 +4,7 @@ import { createCategoryValidator } from "../catValidator";
 import { Category } from "../types/catTypes";
 import { FieldValidationError } from "@/error/FieldValidationErrors";
 import { postRequest } from "@/lib/requests";
+import { revalidatePath } from "next/cache";
 
 export async function createCategoryAction(
   _previousState: unknown,
@@ -48,4 +49,5 @@ export async function createCategoryAction(
       ).serializeError();
     }
   }
+  revalidatePath("/admin/categories");
 }
