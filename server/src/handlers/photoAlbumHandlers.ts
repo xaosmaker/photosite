@@ -70,9 +70,19 @@ export async function getAllPhotoAlbumsHandler(
       title: true,
       description: true,
       isCover: true,
+      categoriesId: true,
+      photoAlbumSlug: true,
     },
     with: {
       images: {
+        columns: {
+          pkid: true,
+          src: true,
+          filename: true,
+          isCover: true,
+          isShown: true,
+          alt: true,
+        },
         orderBy: [desc(imagesTable.isCover), desc(imagesTable.isShown)],
       },
     },

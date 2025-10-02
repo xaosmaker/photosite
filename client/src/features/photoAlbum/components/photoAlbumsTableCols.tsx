@@ -1,6 +1,6 @@
 "use client";
 import { ColumnDef } from "@tanstack/react-table";
-import { PhotoAlbumResponse } from "./photoAlbumTypes";
+import { PhotoAlbumResponse } from "../photoAlbumTypes";
 import {
   Dialog,
   DialogTrigger,
@@ -10,9 +10,26 @@ import {
 } from "@/components/ui/dialog";
 import { CirclePlus } from "lucide-react";
 import { ReactNode } from "react";
+import Image from "next/image";
 
-export function photoAlbumTableCol(form: ReactNode) {
-  const photoAlbum: ColumnDef<PhotoAlbumResponse>[] = [
+export function photoAlbumTableCol<T>(form: ReactNode) {
+  const photoAlbum: ColumnDef<PhotoAlbumResponse<T>>[] = [
+    {
+      accessorKey: "images",
+      header: "",
+      cell: ({ row: { original } }) => {
+        const img = original.images[0] as object;
+
+        if (img && "src" in img) {
+          return (
+            <Image width={50} height={50} src={img.src as string} alt="src" />
+          );
+          //
+        }
+
+        return "No image Fount";
+      },
+    },
     {
       accessorKey: "pkid",
       header: "ID",
