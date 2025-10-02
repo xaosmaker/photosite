@@ -14,6 +14,7 @@ export function errorHandler(
   if (err.message) {
     const error = new FieldAlreadyExistsError(err.message);
     res.status(error.statusCode).json(error.serializeErrors());
+    return;
   }
 
   const error = new FieldAlreadyExistsError(

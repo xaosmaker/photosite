@@ -8,6 +8,8 @@ import photoAlbumsTable from "../db/schema/photoAlbums";
 import { FieldAlreadyExistsError } from "../errors/fieldAlreadyExistsError";
 import imagesTable from "../db/schema/images";
 import { IMAGE_URL } from "../settings";
+import { asc, desc } from "drizzle-orm";
+// import { images } from "../db/schema";
 export async function createPhotoAlbumHandler(
   req: Request<{}, {}, PhotoAlbum>,
   res: Response,
@@ -62,15 +64,19 @@ export async function getAllPhotoAlbumsHandler(
   res: Response,
   _next: NextFunction,
 ) {
-  const albums = await db
-    .select({
-      pkid: photoAlbumsTable.pkid,
-      title: photoAlbumsTable.title,
-      description: photoAlbumsTable.description,
-      isCover: photoAlbumsTable.isCover,
-      photoAlbumSlug: photoAlbumsTable.photoAlbumSlug,
-    })
-    .from(photoAlbumsTable);
+  const albums = await db.query.photoAlbums.findMany({
+    columns: {
+      pkid: true,
+      title: true,
+      description: true,
+      isCover: true,
+    },
+    with: {
+      images: {
+        orderBy: [desc(imagesTable.isCover), desc(imagesTable.isShown)],
+      },
+    },
+  });
   res.json(albums);
 }
 

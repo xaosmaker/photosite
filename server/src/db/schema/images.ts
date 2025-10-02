@@ -1,6 +1,7 @@
 import { pgTable, varchar, boolean, integer } from "drizzle-orm/pg-core";
 import { pkidWithTimestamps } from "./helpers";
-import { photoAlbums } from ".";
+import photoAlbumsTable from "./photoAlbums";
+import { relations } from "drizzle-orm";
 
 const imagesTable = pgTable("images", {
   ...pkidWithTimestamps,
@@ -11,7 +12,14 @@ const imagesTable = pgTable("images", {
   alt: varchar().notNull(),
   albumId: integer("album_id")
     .notNull()
-    .references(() => photoAlbums.pkid),
+    .references(() => photoAlbumsTable.pkid),
 });
+
+export const imagesRelations = relations(imagesTable, ({ one }) => ({
+  image: one(photoAlbumsTable, {
+    fields: [imagesTable.albumId],
+    references: [photoAlbumsTable.pkid],
+  }),
+}));
 
 export default imagesTable;
