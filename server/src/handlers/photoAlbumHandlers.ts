@@ -90,6 +90,43 @@ export async function getAllPhotoAlbumsHandler(
   res.json(albums);
 }
 
+export async function getPhotoAlbumsWithIdHandler(
+  req: Request<{ id: string }>,
+  res: Response,
+  _next: NextFunction,
+) {
+  const id = Number(req.params.id);
+  if (isNaN(id)) {
+    throw new FieldAlreadyExistsError("Something went Wrong contact the admin");
+  }
+
+  const albums = await db.query.photoAlbums.findMany({
+    where: (photos) => eq(photos.pkid, id),
+    columns: {
+      pkid: true,
+      title: true,
+      description: true,
+      isCover: true,
+      categoriesId: true,
+      photoAlbumSlug: true,
+    },
+    with: {
+      images: {
+        columns: {
+          pkid: true,
+          src: true,
+          filename: true,
+          isCover: true,
+          isShown: true,
+          alt: true,
+        },
+        orderBy: [desc(imagesTable.isCover), desc(imagesTable.isShown)],
+      },
+    },
+  });
+  res.json(albums);
+}
+
 // title
 // description
 // isCover

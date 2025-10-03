@@ -2,9 +2,13 @@ import express from "express";
 import {
   createPhotoAlbumHandler,
   getAllPhotoAlbumsHandler,
+  getPhotoAlbumsWithIdHandler,
 } from "../handlers/photoAlbumHandlers";
 import { isAdminMiddleware } from "../middlewares/isAdminMiddleware";
-import { createPhotoAlbumValidators } from "../validators/photoAlbumValidators";
+import {
+  createPhotoAlbumValidators,
+  idParamsValidator,
+} from "../validators/photoAlbumValidators";
 import { validateBodyFields } from "../middlewares/validateBodyFields";
 import multer from "multer";
 import { FieldAlreadyExistsError } from "../errors/fieldAlreadyExistsError";
@@ -41,6 +45,12 @@ const upload = multer({
 const r = express.Router();
 
 r.get("/", getAllPhotoAlbumsHandler);
+r.get(
+  "/:id",
+  idParamsValidator(),
+  validateBodyFields,
+  getPhotoAlbumsWithIdHandler,
+);
 r.use(isAdminMiddleware);
 r.post(
   "/",

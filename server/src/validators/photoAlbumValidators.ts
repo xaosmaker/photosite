@@ -1,4 +1,4 @@
-import { body } from "express-validator";
+import { body, param } from "express-validator";
 
 export function createPhotoAlbumValidators() {
   return [
@@ -15,4 +15,8 @@ export function createPhotoAlbumValidators() {
       .isInt({ min: 1 })
       .withMessage("This field is required"),
   ];
+}
+
+export function idParamsValidator() {
+  return [param("id").isInt({ min: 1 }).withMessage("Params required")];
 }
