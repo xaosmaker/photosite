@@ -1,3 +1,4 @@
+import { ImageType } from "@/types/imageType";
 import Grid from "./Grid";
 import Modal from "./Modal";
 import { PhotoCarousel } from "./PhotoCarousel";
@@ -5,7 +6,7 @@ import { PhotoCarousel } from "./PhotoCarousel";
 interface PhotocardTypes {
   title: string;
   description?: string;
-  photos: string[];
+  photos: ImageType[];
 }
 
 export default function PhotoCard({

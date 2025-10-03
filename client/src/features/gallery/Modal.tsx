@@ -7,8 +7,9 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import Carousel from "./Carousel";
+import { ImageType } from "@/types/imageType";
 
-export default function Modal({ images }: { images: string[] }) {
+export default function Modal({ images }: { images: ImageType[] }) {
   return (
     <Dialog>
       <DialogTrigger asChild>

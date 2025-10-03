@@ -1,12 +1,13 @@
 import Image from "next/image";
 import { WobbleCard } from "@/components/ui/wobble-card";
+import { ImageType } from "@/types/imageType";
 
 export default function Grid({
   className,
   images,
 }: {
   className?: string | undefined;
-  images: string[];
+  images: ImageType[];
 }) {
   // let x = -1;
   //
@@ -15,21 +16,7 @@ export default function Grid({
     <div
       className={`grid w-full auto-rows-auto grid-cols-7 gap-3 p-2 ${className}`}
     >
-      {/* lg:grid-cols-[repeat(auto-fit,_minmax(16rem,_1fr))] */}
       {images.slice(0, 6).map((im, ind) => {
-        {
-          /* x++; */
-        }
-        {
-          /* if (x >= 4) { */
-        }
-        {
-          /*   x = 0; */
-        }
-        {
-          /* } */
-        }
-
         return (
           <WobbleCard
             key={ind}
@@ -38,9 +25,9 @@ export default function Grid({
           >
             <Image
               fill={true}
-              src={im}
+              src={im.src}
               className="h-full w-full object-cover"
-              alt=""
+              alt={im.alt}
             />
           </WobbleCard>
         );

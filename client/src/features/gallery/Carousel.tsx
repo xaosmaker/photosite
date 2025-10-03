@@ -4,12 +4,13 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ImageType } from "@/types/imageType";
 
 export default function Carousel({
   images,
   openImage = 0,
 }: {
-  images: string[];
+  images: ImageType[];
   openImage?: number;
 }) {
   const [currentImage, setCurrentImg] = useState<number>(openImage);
@@ -44,9 +45,9 @@ export default function Carousel({
         <ArrowRight />
       </Button>
       <Image
-        src={images[currentImage]}
+        src={images[currentImage].src}
         className="h-full w-full object-contain p-4"
-        alt="some"
+        alt={images[currentImage].alt}
         fill
       />
       <p className="absolute top-0">

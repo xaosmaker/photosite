@@ -7,14 +7,15 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { ImageType } from "@/types/imageType";
 import { useEffect, useState } from "react";
-export const PhotoCarousel = ({
+export function PhotoCarousel({
   images,
   className,
 }: {
   className?: string | undefined;
-  images: string[];
-}) => {
+  images: ImageType[];
+}) {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
@@ -42,7 +43,11 @@ export const PhotoCarousel = ({
         <CarouselContent>
           {images.map((im, index) => (
             <CarouselItem key={index}>
-              <img src={im} className="h-full w-full object-cover" alt="alt" />
+              <img
+                src={im.src}
+                className="h-full w-full object-cover"
+                alt={im.alt}
+              />
             </CarouselItem>
           ))}
         </CarouselContent>
@@ -54,4 +59,4 @@ export const PhotoCarousel = ({
       </Carousel>
     </>
   );
-};
+}
