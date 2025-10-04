@@ -1,7 +1,7 @@
 import { getAllPhotoAlbums } from "@/features/photoAlbum/photoAlbumFetchers";
 import { PhotoAlbumResponse } from "@/features/photoAlbum/photoAlbumTypes";
-import { photoAlbumTableCol } from "@/features/photoAlbum/components/photoAlbumsTableCols";
 import { DataTable } from "@/components/data-table";
+import { photoAlbumTableCol } from "@/features/photoAlbum/table/photoAlbumsTableCols";
 
 export default async function Page() {
   const photoAlbums: PhotoAlbumResponse[] = await getAllPhotoAlbums();
