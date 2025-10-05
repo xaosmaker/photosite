@@ -1,5 +1,5 @@
 "use server";
-import { postRequestFile } from "@/lib/requests";
+import { postRequestFile, putRequest } from "@/lib/requests";
 import { PhotoAlbum } from "../photoAlbumTypes";
 import { serverURL } from "@/lib/serverURL";
 import { FieldValidationErronNoFormData } from "@/error/FieldValidationErrorNoFormData";
@@ -19,4 +19,27 @@ export async function createPhotoAlbumAction(
     ).serializeError();
   }
   return redirect("/admin/photo-album");
+}
+
+export async function putPhotoAlbumAction(
+  _previousState: unknown,
+  data: FormData,
+) {
+  const pkid = data.get("pkid");
+  const payload = Object.fromEntries(data.entries());
+
+  const res = await putRequest(
+    `${serverURL}/api/photo-albums/${pkid}`,
+    "application/json",
+    payload,
+  );
+
+  if (res.status !== 200) {
+    const resData = await res.json();
+
+    return new FieldValidationErronNoFormData<PhotoAlbum>(
+      resData,
+    ).serializeError();
+  }
+  return redirect(`/admin/photo-album/${pkid}`);
 }

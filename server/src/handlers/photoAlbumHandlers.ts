@@ -8,8 +8,7 @@ import photoAlbumsTable from "../db/schema/photoAlbums";
 import { FieldAlreadyExistsError } from "../errors/fieldAlreadyExistsError";
 import imagesTable from "../db/schema/images";
 import { IMAGE_URL } from "../settings";
-import { asc, desc } from "drizzle-orm";
-// import { images } from "../db/schema";
+import { desc } from "drizzle-orm";
 export async function createPhotoAlbumHandler(
   req: Request<{}, {}, PhotoAlbum>,
   res: Response,
@@ -125,6 +124,31 @@ export async function getPhotoAlbumsWithIdHandler(
     },
   });
   res.json(albums);
+}
+export async function updatePhotoAlbumHandler(
+  req: Request<{ id: string }>,
+  res: Response,
+  _next: NextFunction,
+) {
+  const id = Number(req.params.id);
+
+  const { title, description, isCover, categoriesId, pkid } = req.body;
+  if (isNaN(id) || Number(pkid) !== id) {
+    throw new FieldAlreadyExistsError("Please Send a valid Form");
+  }
+
+  const updatedData = await db
+    .update(photoAlbumsTable)
+    .set({
+      title,
+      description,
+      isCover,
+      categoriesId,
+    })
+    .where(eq(photoAlbumsTable.pkid, id))
+    .returning();
+
+  res.status(200).json(updatedData);
 }
 
 // title

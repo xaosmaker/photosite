@@ -3,6 +3,7 @@ import {
   createPhotoAlbumHandler,
   getAllPhotoAlbumsHandler,
   getPhotoAlbumsWithIdHandler,
+  updatePhotoAlbumHandler,
 } from "../handlers/photoAlbumHandlers";
 import { isAdminMiddleware } from "../middlewares/isAdminMiddleware";
 import {
@@ -58,6 +59,13 @@ r.post(
   createPhotoAlbumValidators(),
   validateBodyFields,
   createPhotoAlbumHandler,
+);
+r.put(
+  "/:id",
+  createPhotoAlbumValidators(),
+  idParamsValidator(),
+  validateBodyFields,
+  updatePhotoAlbumHandler,
 );
 
 export { r as photoAlbumRouter };

@@ -32,3 +32,22 @@ export async function postRequestFile(url: string, body: FormData) {
     body: body,
   });
 }
+
+export async function putRequest(
+  url: string,
+  header: "application/json",
+  body: Record<string, FormDataEntryValue | null>,
+) {
+  const session = await auth();
+  if (!session) {
+    throw new Error("Invalid Credential from Session");
+  }
+  return fetch(url, {
+    method: "put",
+    headers: {
+      "Content-Type": header,
+      cookie: session.user.access,
+    },
+    body: JSON.stringify(body),
+  });
+}

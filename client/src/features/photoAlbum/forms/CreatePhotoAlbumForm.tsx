@@ -7,25 +7,32 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Controller, useForm } from "react-hook-form";
-import { PhotoAlbum } from "../photoAlbumTypes";
+import { PhotoAlbum, PhotoAlbumResponse } from "../photoAlbumTypes";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { photoAlbumValidators } from "../photAlbumValidators";
 import DisplayZodErrors from "@/components/DisplayZodErrors";
 import { useActionState, useTransition } from "react";
-import { createPhotoAlbumAction } from "../actions/createPhotoAlbumAction";
-import { FileUpload } from "@/components/ui/file-upload";
+import {
+  createPhotoAlbumAction,
+  putPhotoAlbumAction,
+} from "../actions/createPhotoAlbumAction";
+import AddImagesForm from "./AddImagesForm";
 export default function CreatePhotoAlbumForm({
   categories,
+  editPhotoAlbumData,
 }: {
   categories: Array<{ value: string; label: string }>;
+  editPhotoAlbumData?: PhotoAlbumResponse;
 }) {
   const [isPending, startTransition] = useTransition();
-  const [state, action] = useActionState(createPhotoAlbumAction, undefined);
+  const [state, action] = useActionState(
+    editPhotoAlbumData ? putPhotoAlbumAction : createPhotoAlbumAction,
+    undefined,
+  );
 
   const {
     register,
     control,
-    watch,
     handleSubmit,
     formState: { errors },
   } = useForm<PhotoAlbum>({
@@ -33,28 +40,37 @@ export default function CreatePhotoAlbumForm({
     criteriaMode: "all",
     mode: "onChange",
     defaultValues: {
-      isCover: false,
+      title: editPhotoAlbumData?.title || "",
+      description: editPhotoAlbumData?.description || "",
+      categoriesId: editPhotoAlbumData?.categoriesId.toString() || undefined,
+      isCover: editPhotoAlbumData?.isCover || false,
+      images: undefined,
+      altText: undefined,
     },
   });
 
   function onsubmit(data: PhotoAlbum) {
-    console.log(1234, data);
     const formData = new FormData();
-    Array.from(data.images).forEach((file) => {
-      formData.append("images", file);
-    });
+    if (!editPhotoAlbumData && data.images) {
+      Array.from(data.images).forEach((file) => {
+        formData.append("images", file);
+      });
+    } else if (editPhotoAlbumData) {
+      formData.append("pkid", editPhotoAlbumData.pkid.toString());
+    }
     const keys = Object.keys(data) as (keyof PhotoAlbum)[];
     keys.forEach((key) => {
       if (key !== "images") {
         formData.append(key, data[key] as string);
       }
     });
+    const obj = Object.fromEntries(formData.entries());
+    console.log(123, obj, data);
 
     startTransition(() => {
       action(formData);
     });
   }
-  console.log(345, watch("images"));
 
   return (
     <form onSubmit={handleSubmit(onsubmit)} className="grid gap-4">
@@ -115,18 +131,15 @@ export default function CreatePhotoAlbumForm({
         />
         <Label htmlFor="isCover">Is Cover</Label>
       </div>
-      <Controller
-        name="images"
-        control={control}
-        render={({ field: { onChange } }) => <FileUpload onChange={onChange} />}
-      />
-      {errors.images?.message && (
-        <DisplayZodErrors title="Title" errors={[errors.images?.message]} />
+      {!editPhotoAlbumData && (
+        <AddImagesForm
+          control={control}
+          register={register("altText")}
+          name="images"
+          errorTitle="Images"
+          errors={errors.images?.message}
+        />
       )}
-      <div>
-        <Label>Alt Text for image</Label>
-        <Input type="text" {...register("altText")} />
-      </div>
       <Button disabled={isPending} type="submit">
         Submit
       </Button>
