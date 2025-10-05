@@ -77,12 +77,10 @@ export async function loginUserHandler(
 }
 
 export async function getUsersHandler(
-  req: Request,
+  _req: Request,
   res: Response,
   _next: NextFunction,
 ) {
-  console.log(req.user);
-
   const user = await db
     .select({
       pkid: usersTable.pkid,

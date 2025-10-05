@@ -64,8 +64,6 @@ export default function CreatePhotoAlbumForm({
         formData.append(key, data[key] as string);
       }
     });
-    const obj = Object.fromEntries(formData.entries());
-    console.log(123, obj, data);
 
     startTransition(() => {
       action(formData);

@@ -10,8 +10,6 @@ export async function createCategoryAction(
   _previousState: unknown,
   formData: FormData,
 ) {
-  console.log(1, formData);
-
   const data = {
     categoryName: formData.get("categoryName"),
   };
@@ -33,8 +31,6 @@ export async function createCategoryAction(
       validated.data,
     );
     const resData = await res.json();
-
-    console.log(resData);
 
     if (res.status !== 201) {
       return new FieldValidationError<Category>(resData, data).serializeError();

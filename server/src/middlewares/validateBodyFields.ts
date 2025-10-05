@@ -7,7 +7,6 @@ export function validateBodyFields(
   next: NextFunction,
 ) {
   const err = validationResult(req);
-  console.log(req.body);
 
   if (!err.isEmpty()) {
     throw new RequestValidationError(err.array());
