@@ -3,6 +3,8 @@ import { ImageType } from "@/types/imageType";
 import { ColumnDef } from "@tanstack/react-table";
 import ShowImageOnTable from "../components/ShowImageOnTable";
 import ActionsMenuOnTable from "../components/ActionsMenuOnTable";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export const photoAlbumIDTableCol: ColumnDef<ImageType>[] = [
   {
@@ -31,8 +33,18 @@ export const photoAlbumIDTableCol: ColumnDef<ImageType>[] = [
   {
     id: "photoAlbumIDHeader",
     header: "Actions",
-    cell: () => {
-      return <ActionsMenuOnTable />;
+    cell: ({ row: { original } }) => {
+      return (
+        <ActionsMenuOnTable
+          editAction={
+            <Button asChild>
+              <Link href={`/admin/images/${original.pkid}/edit-image`}>
+                Edit
+              </Link>
+            </Button>
+          }
+        />
+      );
     },
   },
 ];

@@ -36,7 +36,7 @@ export async function postRequestFile(url: string, body: FormData) {
 export async function putRequest(
   url: string,
   header: "application/json",
-  body: Record<string, FormDataEntryValue | null>,
+  body: Record<string, FormDataEntryValue | string | boolean | number | null>,
 ) {
   const session = await auth();
   if (!session) {

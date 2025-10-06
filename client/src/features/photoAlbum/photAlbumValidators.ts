@@ -16,3 +16,10 @@ export const photoAlbumValidators = z.object({
   images: z.array(z.file()).optional(),
   altText: z.string().optional(),
 });
+
+export const imageFieldsValidator = z.object({
+  alt: z.string(),
+  isCover: z.boolean(),
+  isShown: z.boolean(),
+  pkid: z.int(),
+});
