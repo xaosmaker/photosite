@@ -5,6 +5,7 @@ import { CirclePlus } from "lucide-react";
 import Link from "next/link";
 import ShowImageOnTable from "../components/ShowImageOnTable";
 import ActionsMenuOnTable from "../components/ActionsMenuOnTable";
+import { Button } from "@/components/ui/button";
 
 export const photoAlbumTableCol: ColumnDef<PhotoAlbumResponse>[] = [
   {
@@ -54,8 +55,18 @@ export const photoAlbumTableCol: ColumnDef<PhotoAlbumResponse>[] = [
         </div>
       );
     },
-    cell: () => {
-      return <ActionsMenuOnTable />;
+    cell: ({ row: { original } }) => {
+      return (
+        <ActionsMenuOnTable
+          editAction={
+            <Button asChild>
+              <Link href={`/admin/photo-album/${original.pkid}/edit`}>
+                Edit
+              </Link>
+            </Button>
+          }
+        />
+      );
     },
   },
 ];

@@ -1,7 +1,17 @@
 import { DataTable } from "@/components/data-table";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { PhotoAlbumResponse } from "@/features/photoAlbum/photoAlbumTypes";
 import { photoAlbumIDTableCol } from "@/features/photoAlbum/table/photoAlbumIDTableCols";
 import { serverURL } from "@/lib/serverURL";
+import Link from "next/link";
 
 export default async function page({
   params,
@@ -17,10 +27,20 @@ export default async function page({
   }
 
   return (
-    <div className="container mx-auto rounded-xl border border-neutral-700 px-4 py-4">
-      <h2 className="text-2xl">Title: {data[0].title}</h2>
-      <p>Description: {data[0].description}</p>
-      <DataTable columns={photoAlbumIDTableCol} data={data[0].images} />
-    </div>
+    <Card>
+      <CardHeader>
+        <CardTitle>Title: {data[0].title}</CardTitle>
+        <CardDescription>Description: {data[0].description}</CardDescription>
+        <CardDescription>is cover: {String(data[0].isCover)}</CardDescription>
+        <CardAction>
+          <Button asChild>
+            <Link href={`/admin/photo-album/${photoAlbumID}/edit`}>Edit</Link>
+          </Button>
+        </CardAction>
+      </CardHeader>
+      <CardContent>
+        <DataTable columns={photoAlbumIDTableCol} data={data[0].images} />
+      </CardContent>
+    </Card>
   );
 }
