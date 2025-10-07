@@ -14,7 +14,12 @@ export const photoAlbumValidators = z.object({
       },
     ),
   images: z.array(z.file()).optional(),
-  altText: z.string().optional(),
+  alt: z.string().optional(),
+});
+export const imageValidator = z.object({
+  albumId: z.number(),
+  images: z.array(z.file()).min(1, { error: "This field is required" }),
+  alt: z.string(),
 });
 
 export const imageFieldsValidator = z.object({

@@ -1,6 +1,6 @@
 "use server";
 import { postRequestFile, putRequest } from "@/lib/requests";
-import { ImageForm, PhotoAlbum } from "../photoAlbumTypes";
+import { ImageForm, ImageValidator, PhotoAlbum } from "../photoAlbumTypes";
 import { serverURL } from "@/lib/serverURL";
 import { FieldValidationErronNoFormData } from "@/error/FieldValidationErrorNoFormData";
 import { redirect } from "next/navigation";
@@ -61,4 +61,21 @@ export async function updateImageDetaild(
   }
 
   return redirect(`/admin/photo-album/${data.albumId}`);
+}
+
+export async function uploadPhotoAlbumImagesAction(
+  _previousState: unknown,
+  data: FormData,
+) {
+  const res = await postRequestFile(`${serverURL}/api/images`, data);
+  const albumId = data.get("albumId") || "";
+
+  if (res.status !== 201) {
+    const resData = await res.json();
+
+    return new FieldValidationErronNoFormData<ImageValidator>(
+      resData,
+    ).serializeError();
+  }
+  return redirect(`/admin/photo-album/${albumId}`);
 }

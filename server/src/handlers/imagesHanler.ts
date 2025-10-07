@@ -2,11 +2,28 @@ import { NextFunction, Request, Response } from "express";
 import { db } from "../db/dbPool";
 import imagesTable from "../db/schema/images";
 import { eq } from "drizzle-orm";
+import { IMAGE_URL } from "../settings";
 export function createImageHandler(
   req: Request,
   res: Response,
-  next: NextFunction,
+  _next: NextFunction,
 ) {
+  const { alt, albumId } = req.body;
+  const files = req.files;
+
+  if (Array.isArray(files)) {
+    files?.forEach(async (image: Express.Multer.File) => {
+      await db.insert(imagesTable).values({
+        filename: image.originalname,
+        src: `${IMAGE_URL}${image.originalname}`,
+        isCover: false,
+        isShown: false,
+        albumId: albumId,
+        alt: alt || image.originalname,
+      });
+    });
+  }
+
   res.status(201).json({ hello: "from create image" });
 }
 

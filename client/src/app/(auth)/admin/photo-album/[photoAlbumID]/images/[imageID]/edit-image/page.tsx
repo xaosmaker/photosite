@@ -11,7 +11,6 @@ export default async function page({
   const { imageID } = await params;
   const imageRes = await fetch(`${serverURL}/api/images/${imageID}`);
   const image: ImageType = await imageRes.json();
-  console.log(imageID, image);
 
   return (
     <Card>

@@ -42,6 +42,13 @@ export default async function page({
                 </Link>
               </Button>
             }
+            otherAction={
+              <Button asChild>
+                <Link href={`/admin/photo-album/${photoAlbumID}/images/upload`}>
+                  Upload
+                </Link>
+              </Button>
+            }
           />
         </CardAction>
       </CardHeader>

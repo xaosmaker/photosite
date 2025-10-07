@@ -10,12 +10,12 @@ import imagesTable from "../db/schema/images";
 import { IMAGE_URL } from "../settings";
 import { desc } from "drizzle-orm";
 export async function createPhotoAlbumHandler(
-  req: Request<{}, {}, PhotoAlbum>,
+  req: Request<{}, {}, { alt: string } & PhotoAlbum>,
   res: Response,
   _next: NextFunction,
 ) {
   //TODO: fix the original alt name
-  const { title, description, isCover, categoriesId } = req.body;
+  const { title, description, isCover, categoriesId, alt } = req.body;
   const files = req.files;
 
   const [category] = await db
@@ -48,7 +48,7 @@ export async function createPhotoAlbumHandler(
           isCover: false,
           isShown: false,
           albumId: photoAlbum.pkid,
-          alt: image.originalname,
+          alt: alt || image.originalname,
         });
       });
     }

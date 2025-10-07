@@ -45,7 +45,7 @@ export default function CreatePhotoAlbumForm({
       categoriesId: editPhotoAlbumData?.categoriesId.toString() || undefined,
       isCover: editPhotoAlbumData?.isCover || false,
       images: undefined,
-      altText: undefined,
+      alt: undefined,
     },
   });
 
@@ -132,7 +132,7 @@ export default function CreatePhotoAlbumForm({
       {!editPhotoAlbumData && (
         <AddImagesForm
           control={control}
-          register={register("altText")}
+          register={register("alt")}
           name="images"
           errorTitle="Images"
           errors={errors.images?.message}
