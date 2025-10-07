@@ -1,6 +1,7 @@
 import express from "express";
 import {
   createPhotoAlbumHandler,
+  deletePhotoAlbumHandler,
   getAllPhotoAlbumsHandler,
   getPhotoAlbumsWithIdHandler,
   updatePhotoAlbumHandler,
@@ -36,6 +37,12 @@ r.put(
   idParamsValidator(),
   validateBodyFields,
   updatePhotoAlbumHandler,
+);
+r.delete(
+  "/:id",
+  idParamsValidator(),
+  validateBodyFields,
+  deletePhotoAlbumHandler,
 );
 
 export { r as photoAlbumRouter };

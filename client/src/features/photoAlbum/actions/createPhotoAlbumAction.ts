@@ -95,3 +95,22 @@ export async function deleteImageAction(
 
   return redirect(`/admin/photo-album/${data.albumId}`);
 }
+
+export async function deletePhotoAlbumAction(
+  _previousState: unknown,
+  data: { albumId: string },
+) {
+  const res = await deleteRequest(
+    `${serverURL}/api/photo-albums/${data.albumId}`,
+  );
+
+  if (res.status !== 200) {
+    const resData = await res.json();
+
+    return new FieldValidationErronNoFormData<ImageValidator>(
+      resData,
+    ).serializeError();
+  }
+
+  return redirect(`/admin/photo-album`);
+}

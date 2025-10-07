@@ -9,6 +9,8 @@ import { FieldAlreadyExistsError } from "../errors/fieldAlreadyExistsError";
 import imagesTable from "../db/schema/images";
 import { IMAGE_URL } from "../settings";
 import { desc } from "drizzle-orm";
+import fs from "node:fs/promises";
+import path from "node:path";
 export async function createPhotoAlbumHandler(
   req: Request<{}, {}, { alt: string } & PhotoAlbum>,
   res: Response,
@@ -151,6 +153,32 @@ export async function updatePhotoAlbumHandler(
     .returning();
 
   res.status(200).json(updatedData);
+}
+
+export async function deletePhotoAlbumHandler(
+  req: Request<{ id: string }>,
+  res: Response,
+  _next: NextFunction,
+) {
+  const id = req.params.id;
+
+  const [albums] = await db.query.photoAlbums.findMany({
+    where: (photos) => eq(photos.pkid, Number(id)),
+    with: {
+      images: true,
+    },
+  });
+  const images = albums.images;
+  images.forEach(async (image) => {
+    await fs.rm(path.join("/test", image.filename), { force: true });
+    await db.delete(imagesTable).where(eq(imagesTable.pkid, image.pkid));
+  });
+
+  await db
+    .delete(photoAlbumsTable)
+    .where(eq(photoAlbumsTable.pkid, Number(id)));
+
+  res.json({ waht: "whata" });
 }
 
 // title

@@ -65,6 +65,13 @@ export const photoAlbumTableCol: ColumnDef<PhotoAlbumResponse>[] = [
               </Link>
             </Button>
           }
+          deleteAction={
+            <Button variant="destructive" asChild>
+              <Link href={`/admin/photo-album/${original.pkid}/delete`}>
+                Delete
+              </Link>
+            </Button>
+          }
         />
       );
     },
