@@ -51,3 +51,18 @@ export async function putRequest(
     body: JSON.stringify(body),
   });
 }
+
+export async function deleteRequest(url: string) {
+  const session = await auth();
+  if (!session) {
+    throw new Error("Invalid Credential from Session");
+  }
+  return fetch(url, {
+    method: "delete",
+    headers: {
+      "Content-Type": "application/json",
+
+      cookie: session.user.access,
+    },
+  });
+}

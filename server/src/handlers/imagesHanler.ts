@@ -3,6 +3,8 @@ import { db } from "../db/dbPool";
 import imagesTable from "../db/schema/images";
 import { eq } from "drizzle-orm";
 import { IMAGE_URL } from "../settings";
+import fs from "node:fs/promises";
+import path from "node:path";
 export function createImageHandler(
   req: Request,
   res: Response,
@@ -54,4 +56,22 @@ export async function updateImageDetails(
     .where(eq(imagesTable.pkid, Number(id)));
 
   res.json({ finish: "end" });
+}
+
+export async function deleteImageHandler(
+  req: Request<{ id: string }>,
+  res: Response,
+  _next: NextFunction,
+) {
+  const id = req.params.id;
+  const [image] = await db
+    .select()
+    .from(imagesTable)
+    .where(eq(imagesTable.pkid, Number(id)));
+
+  const imagePath = path.join("/test", image.filename);
+  await fs.rm(imagePath, { force: true });
+  await db.delete(imagesTable).where(eq(imagesTable.pkid, Number(id)));
+
+  res.json({ finish: "end2" });
 }

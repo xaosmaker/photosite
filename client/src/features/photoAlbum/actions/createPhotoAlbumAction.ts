@@ -1,5 +1,5 @@
 "use server";
-import { postRequestFile, putRequest } from "@/lib/requests";
+import { deleteRequest, postRequestFile, putRequest } from "@/lib/requests";
 import { ImageForm, ImageValidator, PhotoAlbum } from "../photoAlbumTypes";
 import { serverURL } from "@/lib/serverURL";
 import { FieldValidationErronNoFormData } from "@/error/FieldValidationErrorNoFormData";
@@ -78,4 +78,20 @@ export async function uploadPhotoAlbumImagesAction(
     ).serializeError();
   }
   return redirect(`/admin/photo-album/${albumId}`);
+}
+export async function deleteImageAction(
+  _previousState: unknown,
+  data: { albumId: string; imageId: string },
+) {
+  const res = await deleteRequest(`${serverURL}/api/images/${data.imageId}`);
+
+  if (res.status !== 200) {
+    const resData = await res.json();
+
+    return new FieldValidationErronNoFormData<ImageValidator>(
+      resData,
+    ).serializeError();
+  }
+
+  return redirect(`/admin/photo-album/${data.albumId}`);
 }

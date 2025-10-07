@@ -1,6 +1,7 @@
 import express from "express";
 import {
   createImageHandler,
+  deleteImageHandler,
   getImageWithIdHandler,
   updateImageDetails,
 } from "../handlers/imagesHanler";
@@ -30,5 +31,6 @@ r.put(
   validateBodyFields,
   updateImageDetails,
 );
+r.delete("/:id", idParamsValidator(), validateBodyFields, deleteImageHandler);
 
 export { r as imagesRouter };
