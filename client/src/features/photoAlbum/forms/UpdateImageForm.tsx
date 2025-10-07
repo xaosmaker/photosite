@@ -11,7 +11,6 @@ import { Button } from "@/components/ui/button";
 import { useActionState, useTransition } from "react";
 import { updateImageDetaild } from "../actions/createPhotoAlbumAction";
 import DisplayZodErrors from "@/components/DisplayZodErrors";
-import { stat } from "fs";
 
 export default function UpdateImageForm({
   imageData,
@@ -32,6 +31,7 @@ export default function UpdateImageForm({
       isShown: imageData.isShown,
       alt: imageData.alt,
       pkid: imageData.pkid,
+      albumId: imageData.albumId,
     },
   });
   const [isPending, startTransition] = useTransition();

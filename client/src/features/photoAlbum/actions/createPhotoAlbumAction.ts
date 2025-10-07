@@ -60,5 +60,5 @@ export async function updateImageDetaild(
     ).serializeError();
   }
 
-  return redirect(`/admin/photo-album`);
+  return redirect(`/admin/photo-album/${data.albumId}`);
 }

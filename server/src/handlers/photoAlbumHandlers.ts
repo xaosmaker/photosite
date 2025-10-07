@@ -75,6 +75,7 @@ export async function getAllPhotoAlbumsHandler(
     with: {
       images: {
         columns: {
+          albumId: true,
           pkid: true,
           src: true,
           filename: true,
@@ -112,6 +113,7 @@ export async function getPhotoAlbumsWithIdHandler(
     with: {
       images: {
         columns: {
+          albumId: true,
           pkid: true,
           src: true,
           filename: true,

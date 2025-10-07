@@ -22,4 +22,5 @@ export const imageFieldsValidator = z.object({
   isCover: z.boolean(),
   isShown: z.boolean(),
   pkid: z.int(),
+  albumId: z.int(),
 });

@@ -38,7 +38,9 @@ export const photoAlbumIDTableCol: ColumnDef<ImageType>[] = [
         <ActionsMenuOnTable
           editAction={
             <Button asChild>
-              <Link href={`/admin/images/${original.pkid}/edit-image`}>
+              <Link
+                href={`/admin/photo-album/${original.albumId}/images/${original.pkid}/edit-image`}
+              >
                 Edit
               </Link>
             </Button>

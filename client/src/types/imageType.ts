@@ -1,4 +1,5 @@
 export interface ImageType {
+  albumId: number;
   pkid: number;
   src: string;
   filename: string;

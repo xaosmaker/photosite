@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import ActionsMenuOnTable from "@/features/photoAlbum/components/ActionsMenuOnTable";
 import { PhotoAlbumResponse } from "@/features/photoAlbum/photoAlbumTypes";
 import { photoAlbumIDTableCol } from "@/features/photoAlbum/table/photoAlbumIDTableCols";
 import { serverURL } from "@/lib/serverURL";
@@ -32,10 +33,16 @@ export default async function page({
         <CardTitle>Title: {data[0].title}</CardTitle>
         <CardDescription>Description: {data[0].description}</CardDescription>
         <CardDescription>is cover: {String(data[0].isCover)}</CardDescription>
-        <CardAction>
-          <Button asChild>
-            <Link href={`/admin/photo-album/${photoAlbumID}/edit`}>Edit</Link>
-          </Button>
+        <CardAction className="">
+          <ActionsMenuOnTable
+            editAction={
+              <Button asChild>
+                <Link href={`/admin/photo-album/${photoAlbumID}/edit`}>
+                  Edit
+                </Link>
+              </Button>
+            }
+          />
         </CardAction>
       </CardHeader>
       <CardContent>
