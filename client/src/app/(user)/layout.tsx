@@ -1,5 +1,5 @@
 import NavBar from "@/components/NavBar";
-import Navbar2 from "@/components/Navbar2";
+// import Navbar2 from "@/components/Navbar2";
 
 export default function RootLayout({
   children,
@@ -8,8 +8,8 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      {/* <NavBar /> */}
-      <Navbar2 />
+      <NavBar />
+      {/* <Navbar2 /> */}
       {children}
     </>
   );
