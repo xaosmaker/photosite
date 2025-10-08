@@ -7,3 +7,14 @@ export interface ImageType {
   isShown: boolean;
   alt: string;
 }
+
+export interface PhotoAlbumResponse {
+  categoriesId: string;
+  isCover: boolean;
+  description: string;
+  title: string;
+  pkid: number;
+  photoAlbumSlug: string;
+  images: ImageType[];
+  alt: string;
+}

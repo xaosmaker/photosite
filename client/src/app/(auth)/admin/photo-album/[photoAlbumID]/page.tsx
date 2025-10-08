@@ -9,9 +9,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import ActionsMenuOnTable from "@/features/photoAlbum/components/ActionsMenuOnTable";
-import { PhotoAlbumResponse } from "@/features/photoAlbum/photoAlbumTypes";
 import { photoAlbumIDTableCol } from "@/features/photoAlbum/table/photoAlbumIDTableCols";
 import { serverURL } from "@/lib/serverURL";
+import { PhotoAlbumResponse } from "@/types/imageType";
 import Link from "next/link";
 
 export default async function page({

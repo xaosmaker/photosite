@@ -1,8 +1,8 @@
 import { getCategories } from "@/features/categories/fetchers";
 import { CategoryResponse } from "@/features/categories/types/catTypes";
 import CreatePhotoAlbumForm from "@/features/photoAlbum/forms/CreatePhotoAlbumForm";
-import { PhotoAlbumResponse } from "@/features/photoAlbum/photoAlbumTypes";
 import { serverURL } from "@/lib/serverURL";
+import { PhotoAlbumResponse } from "@/types/imageType";
 
 export default async function Page({
   params,

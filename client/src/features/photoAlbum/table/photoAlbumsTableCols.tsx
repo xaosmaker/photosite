@@ -1,11 +1,11 @@
 "use client";
 import { ColumnDef } from "@tanstack/react-table";
-import { PhotoAlbumResponse } from "../photoAlbumTypes";
 import { CirclePlus } from "lucide-react";
 import Link from "next/link";
 import ShowImageOnTable from "../components/ShowImageOnTable";
 import ActionsMenuOnTable from "../components/ActionsMenuOnTable";
 import { Button } from "@/components/ui/button";
+import { PhotoAlbumResponse } from "@/types/imageType";
 
 export const photoAlbumTableCol: ColumnDef<PhotoAlbumResponse>[] = [
   {

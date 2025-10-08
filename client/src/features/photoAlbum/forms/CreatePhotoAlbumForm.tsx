@@ -7,7 +7,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Controller, useForm } from "react-hook-form";
-import { PhotoAlbum, PhotoAlbumResponse } from "../photoAlbumTypes";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { photoAlbumValidators } from "../photAlbumValidators";
 import DisplayZodErrors from "@/components/DisplayZodErrors";
@@ -17,6 +16,8 @@ import {
   putPhotoAlbumAction,
 } from "../actions/createPhotoAlbumAction";
 import AddImagesForm from "./AddImagesForm";
+import { PhotoAlbum } from "../photoAlbumTypes";
+import { PhotoAlbumResponse } from "@/types/imageType";
 export default function CreatePhotoAlbumForm({
   categories,
   editPhotoAlbumData,
