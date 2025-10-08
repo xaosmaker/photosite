@@ -5,6 +5,7 @@ import { eq } from "drizzle-orm";
 import { IMAGE_URL } from "../settings";
 import fs from "node:fs/promises";
 import path from "node:path";
+import { imageSizeFromFile } from "image-size/fromFile";
 export function createImageHandler(
   req: Request,
   res: Response,
@@ -15,6 +16,9 @@ export function createImageHandler(
 
   if (Array.isArray(files)) {
     files?.forEach(async (image: Express.Multer.File) => {
+      const size = await imageSizeFromFile(
+        path.join("/test", image.originalname),
+      );
       await db.insert(imagesTable).values({
         filename: image.originalname,
         src: `${IMAGE_URL}${image.originalname}`,
@@ -22,6 +26,8 @@ export function createImageHandler(
         isShown: false,
         albumId: albumId,
         alt: alt || image.originalname,
+        height: size.height,
+        width: size.width,
       });
     });
   }

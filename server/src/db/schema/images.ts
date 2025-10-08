@@ -10,6 +10,8 @@ const imagesTable = pgTable("images", {
   isCover: boolean("is_cover").notNull().default(false),
   isShown: boolean("is_shown").notNull().default(false),
   alt: varchar().notNull(),
+  width: integer().notNull().default(0),
+  height: integer().notNull().default(0),
   albumId: integer("album_id")
     .notNull()
     .references(() => photoAlbumsTable.pkid),

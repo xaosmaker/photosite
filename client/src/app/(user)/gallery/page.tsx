@@ -7,12 +7,7 @@ export default async function Page() {
   return (
     <div>
       {data?.map((album) => (
-        <PhotoCard
-          key={album.pkid}
-          title={album.title}
-          description={album.description}
-          photos={album.images}
-        />
+        <PhotoCard key={album.pkid} album={album} />
       ))}
     </div>
   );

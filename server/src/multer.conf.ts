@@ -2,6 +2,7 @@ import multer from "multer";
 import imagesTable from "./db/schema/images";
 import { FieldAlreadyExistsError } from "./errors/fieldAlreadyExistsError";
 import { db } from "./db/dbPool";
+import { FILE_SIZE } from "./settings";
 
 const storage = multer.diskStorage({
   destination: function (_req, _file, cb) {
@@ -29,5 +30,5 @@ const storage = multer.diskStorage({
 
 export const upload = multer({
   storage: storage,
-  limits: { fileSize: 10 * 1024 * 1024 },
+  limits: { fileSize: Number(FILE_SIZE) * 1024 * 1024 },
 });

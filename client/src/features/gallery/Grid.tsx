@@ -19,7 +19,7 @@ export default function Grid({
       {images.slice(0, 6).map((im, ind) => {
         return (
           <WobbleCard
-            key={ind}
+            key={im.pkid}
             containerClassName={`${ind % 4 === 0 ? "col-span-3" : "col-span-2"} `}
             className="h-80"
           >

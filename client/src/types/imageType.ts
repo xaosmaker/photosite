@@ -6,6 +6,8 @@ export interface ImageType {
   isCover: boolean;
   isShown: boolean;
   alt: string;
+  height: number;
+  width: number;
 }
 
 export interface PhotoAlbumResponse {

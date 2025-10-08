@@ -9,8 +9,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import ActionsMenuOnTable from "@/features/photoAlbum/components/ActionsMenuOnTable";
+import { getPhotoAlbumByID } from "@/features/photoAlbum/photoAlbumFetchers";
 import { photoAlbumIDTableCol } from "@/features/photoAlbum/table/photoAlbumIDTableCols";
-import { serverURL } from "@/lib/serverURL";
 import { PhotoAlbumResponse } from "@/types/imageType";
 import Link from "next/link";
 
@@ -20,12 +20,7 @@ export default async function page({
   params: Promise<{ photoAlbumID: string }>;
 }) {
   const { photoAlbumID } = await params;
-  const res = await fetch(`${serverURL}/api/photo-albums/${photoAlbumID}`);
-  const data: PhotoAlbumResponse[] = await res.json();
-
-  if (res.status !== 200) {
-    throw new Error("Params Required");
-  }
+  const data: PhotoAlbumResponse[] = await getPhotoAlbumByID(photoAlbumID);
 
   return (
     <Card>

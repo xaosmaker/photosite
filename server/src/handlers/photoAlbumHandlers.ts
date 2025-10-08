@@ -11,6 +11,7 @@ import { IMAGE_URL } from "../settings";
 import { desc } from "drizzle-orm";
 import fs from "node:fs/promises";
 import path from "node:path";
+import { imageSizeFromFile } from "image-size/fromFile";
 export async function createPhotoAlbumHandler(
   req: Request<{}, {}, { alt: string } & PhotoAlbum>,
   res: Response,
@@ -44,6 +45,10 @@ export async function createPhotoAlbumHandler(
       .returning();
     if (Array.isArray(files)) {
       files?.forEach(async (image: Express.Multer.File) => {
+        const size = await imageSizeFromFile(
+          path.join("/test", image.originalname),
+        );
+
         await db.insert(imagesTable).values({
           filename: image.originalname,
           src: `${IMAGE_URL}${image.originalname}`,
@@ -51,6 +56,8 @@ export async function createPhotoAlbumHandler(
           isShown: false,
           albumId: photoAlbum.pkid,
           alt: alt || image.originalname,
+          width: size.width,
+          height: size.height,
         });
       });
     }
@@ -84,6 +91,8 @@ export async function getAllPhotoAlbumsHandler(
           isCover: true,
           isShown: true,
           alt: true,
+          width: true,
+          height: true,
         },
         orderBy: [desc(imagesTable.isCover), desc(imagesTable.isShown)],
       },
@@ -122,6 +131,8 @@ export async function getPhotoAlbumsWithIdHandler(
           isCover: true,
           isShown: true,
           alt: true,
+          width: true,
+          height: true,
         },
         orderBy: [desc(imagesTable.isCover), desc(imagesTable.isShown)],
       },
