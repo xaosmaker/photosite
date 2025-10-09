@@ -1,5 +1,6 @@
 import { PhotoAlbumResponse } from "@/types/imageType";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function ImagesGrid({
   photoAlbum,
@@ -14,12 +15,14 @@ export default function ImagesGrid({
             key={img.pkid}
             className={`relative ${img.width > img.height ? "aspect-[4/3] sm:basis-5/12" : "aspect-[3/4] sm:basis-4/12"} w-full shrink-0 grow last:grow-0`}
           >
-            <Image
-              src={img.src}
-              alt={img.alt}
-              fill
-              className="h-full w-full object-cover"
-            />
+            <Link href={`/gallery/${photoAlbum.pkid}/${img.pkid}`}>
+              <Image
+                src={img.src}
+                alt={img.alt}
+                fill
+                className="h-full w-full object-cover"
+              />
+            </Link>
           </div>
         );
       })}
