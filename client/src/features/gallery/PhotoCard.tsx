@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 export default function PhotoCard({ album }: { album: PhotoAlbumResponse }) {
   return (
-    <div className="py-20 pb-40 even:bg-zinc-200">
+    <div className="py-20 pb-40 even:bg-neutral-200 even:dark:bg-neutral-800">
       <Link href={`/gallery/${album.pkid}`}>
         <h3 className="pt-10 text-center text-xl font-extrabold uppercase md:text-3xl lg:text-5xl">
           {album.title}
