@@ -1,8 +1,8 @@
 import { PhotoAlbumResponse } from "@/types/imageType";
 import Grid from "./Grid";
-import Modal from "./Modal";
 import { PhotoCarousel } from "./PhotoCarousel";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default function PhotoCard({ album }: { album: PhotoAlbumResponse }) {
   return (
@@ -19,7 +19,9 @@ export default function PhotoCard({ album }: { album: PhotoAlbumResponse }) {
         <PhotoCarousel images={album.images} className="px-0 md:hidden" />
 
         <Grid album={album} className="not-md:hidden" />
-        <Modal images={album.images} />
+        <Button className="" asChild>
+          <Link href={`/gallery/${album.pkid}`}> All Images</Link>
+        </Button>
       </div>
     </div>
   );

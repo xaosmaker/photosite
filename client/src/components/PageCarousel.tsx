@@ -1,54 +1,48 @@
 "use client";
 import { ImageType } from "@/types/imageType";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
-import { ArrowBigLeft, ArrowBigRight } from "lucide-react";
+import { ArrowBigLeft, ArrowBigRight, X } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 
 export default function PageCarousel({
   images,
   imageId,
 }: {
+  modal?: boolean;
   images: ImageType[];
   imageId: number;
 }) {
   const router = useRouter();
   const pathname = usePathname();
-  const [currentIndex, setCurrentIndex] = useState<number>(() => {
-    const ind = images.findIndex((img) => img.pkid === imageId || 0);
-    return ind === -1 ? 0 : ind;
-  });
 
-  useEffect(() => {
+  function nextImageId(index: number) {
     const pathnameList = pathname.split("/");
-    pathnameList[pathnameList.length - 1] =
-      images[currentIndex].pkid.toString();
+    pathnameList[pathnameList.length - 1] = images[index].pkid.toString();
 
     const newPathName = pathnameList.join("/");
     if (newPathName !== pathname) {
       router.replace(newPathName);
     }
-  }, [currentIndex, pathname, images, router]);
+  }
+
+  const ind = images.findIndex((img) => img.pkid === imageId || 0);
+  const index = ind === -1 ? 0 : ind;
 
   function nextImage() {
-    if (currentIndex + 1 >= images.length) {
-      setCurrentIndex(0);
-      return;
-    }
-    setCurrentIndex((num) => (num += 1));
+    const ind = index + 1 >= images.length ? 0 : index + 1;
+    nextImageId(ind);
   }
+
   function previousImage() {
-    if (currentIndex - 1 < 0) {
-      setCurrentIndex(images.length - 1);
-      return;
-    }
-    setCurrentIndex((num) => (num -= 1));
+    const ind = index - 1 < 0 ? images.length - 1 : index - 1;
+    nextImageId(ind);
   }
+
   return (
     <div className="relative flex h-screen w-screen items-center justify-center">
       <div className="absolute top-20 left-20">
-        {currentIndex + 1} of {images.length}
+        {index + 1} of {images.length}
       </div>
       <div className="flex h-11/12 w-11/12 items-center justify-center">
         <Button
@@ -63,11 +57,17 @@ export default function PageCarousel({
         >
           <ArrowBigRight />
         </Button>
+        <Button
+          onClick={() => router.back()}
+          className="absolute top-20 right-20"
+        >
+          <X />
+        </Button>
         <Image
-          src={images[currentIndex].src}
-          alt={images[currentIndex].alt}
-          width={images[currentIndex].width}
-          height={images[currentIndex].height}
+          src={images[index].src}
+          alt={images[index].alt}
+          width={images[index].width}
+          height={images[index].height}
           className="max-h-full max-w-full object-contain"
           priority
         />
