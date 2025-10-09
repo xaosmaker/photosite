@@ -19,5 +19,6 @@ WORKDIR /client
 COPY --from=build /build/package.json /build/package-lock.json ./
 RUN npm ci --omit=dev && npm cache clean --force
 COPY --from=build /build/.next /client/.next
+COPY --from=build /build/next.config.ts /client/.
 
 CMD ["npm","run","start"]

@@ -8,6 +8,7 @@ export async function getAllPhotoAlbums() {
     return data;
   } catch (e) {
     console.log(e);
+    return [];
   }
 }
 export async function getPhotoAlbumByID(photoAlbumID: string) {
