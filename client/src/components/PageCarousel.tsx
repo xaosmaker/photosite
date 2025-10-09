@@ -46,7 +46,10 @@ export default function PageCarousel({
     setCurrentIndex((num) => (num -= 1));
   }
   return (
-    <div className="flex h-screen w-screen items-center justify-center">
+    <div className="relative flex h-screen w-screen items-center justify-center">
+      <div className="absolute top-20 left-20">
+        {currentIndex + 1} of {images.length}
+      </div>
       <div className="flex h-11/12 w-11/12 items-center justify-center">
         <Button
           onClick={previousImage}
