@@ -15,8 +15,7 @@ services:
       - 3001:3001
     networks:
       - photosite_db_net
-      # - prod-nginx-net
-      - local-nginx-net
+      - prod-nginx-net
 
     command: npm run start
 
@@ -34,8 +33,7 @@ services:
     ports:
       - 3000:3000
     networks:
-      #- prod-nginx-net
-      - local-nginx-net
+      - prod-nginx-net
     command: npm run start
 
   photosite_db:
@@ -55,10 +53,8 @@ services:
       - photosite_db_net
 #
 networks:
-  local-nginx-net:
+  prod-nginx-net:
     external: true
-  # prod-nginx-net:
-  #   external: true
   photosite_db_net:
 
 volumes:
