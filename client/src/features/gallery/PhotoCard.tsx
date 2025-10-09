@@ -16,7 +16,7 @@ export default function PhotoCard({ album }: { album: PhotoAlbumResponse }) {
         </p>
       </Link>
       <div className="mx-auto max-w-8/12 sm:max-w-10/12 md:max-w-9/12 xl:max-w-7/12">
-        <PhotoCarousel images={album.images} className="px-0 md:hidden" />
+        <PhotoCarousel album={album} className="px-0 md:hidden" />
 
         <Grid album={album} className="not-md:hidden" />
         <Button className="" asChild>

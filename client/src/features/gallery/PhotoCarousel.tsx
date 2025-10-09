@@ -7,14 +7,16 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { ImageType } from "@/types/imageType";
+import { PhotoAlbumResponse } from "@/types/imageType";
+import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 export function PhotoCarousel({
-  images,
+  album,
   className,
 }: {
+  album: PhotoAlbumResponse;
   className?: string | undefined;
-  images: ImageType[];
 }) {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
@@ -41,13 +43,20 @@ export function PhotoCarousel({
         setApi={setApi}
       >
         <CarouselContent>
-          {images.map((im, index) => (
-            <CarouselItem key={index}>
-              <img
-                src={im.src}
-                className="h-full w-full object-cover"
-                alt={im.alt}
-              />
+          {album.images.map((im) => (
+            <CarouselItem
+              key={im.pkid}
+              className="relative aspect-[3/4] h-full w-full"
+            >
+              <Link href={`/gallery/${album.pkid}/${im.pkid}`}>
+                <Image
+                  src={im.src}
+                  className="h-full w-full object-cover"
+                  alt={im.alt}
+                  width={im.width}
+                  height={im.height}
+                />
+              </Link>
             </CarouselItem>
           ))}
         </CarouselContent>
