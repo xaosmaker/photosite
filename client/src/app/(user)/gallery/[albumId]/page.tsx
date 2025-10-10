@@ -12,10 +12,10 @@ export default async function AlbumPage({
   return (
     <div className="mx-auto mt-20 max-w-4xl px-4 py-8 lg:max-w-6xl">
       <div className="mb-8 text-center">
-        <h1 className="mb-2 text-4xl font-extrabold tracking-tight text-gray-900 uppercase drop-shadow-lg">
+        <h1 className="mb-2 text-4xl font-extrabold tracking-tight uppercase drop-shadow-lg">
           {photoAblum.title || "Album"}
         </h1>
-        <p className="mx-auto max-w-2xl text-lg text-gray-600 italic">
+        <p className="mx-auto max-w-2xl text-lg italic">
           {photoAblum.description ||
             "A curated collection of beautiful moments from this album."}
         </p>
