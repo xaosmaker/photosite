@@ -59,7 +59,7 @@ export default function PageCarousel({
         </Button>
         <Button
           onClick={() => router.back()}
-          className="absolute top-20 right-20"
+          className="absolute top-20 right-4 sm:right-10"
         >
           <X />
         </Button>
